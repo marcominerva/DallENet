@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DallENet</name>
+    </assembly>
+    <members>
+        <member name="T:DallENet.DallEBuilder">
+            <inheritdoc/>
+        </member>
+        <member name="P:DallENet.DallEBuilder.Services">
+            <inheritdoc/>
+        </member>
+        <member name="P:DallENet.DallEBuilder.HttpClientBuilder">
+            <inheritdoc/>
+        </member>
+        <member name="T:DallENet.DallEOptions">
+            <summary>
+            Options class that provides settings for configuring DALLE·E.
+            </summary>
+        </member>
+        <member name="P:DallENet.DallEOptions.ServiceConfiguration">
+            <summary>
+            Gets or sets the configuration settings for accessing the service.
+            </summary>
+            <seealso cref="T:DallENet.ServiceConfigurations.DallEServiceConfiguration"/>
+            <seealso cref="T:DallENet.ServiceConfigurations.AzureDallEServiceConfiguration"/>
+        </member>
+        <member name="P:DallENet.DallEOptions.DefaultResolution">
+            <summary>
+            Gets or sets the default resolution for image generation (default: 1024x1024).
+            </summary>
+            <seealso cref="T:DallENet.Models.DallEImageGenerationResponse"/>
+        </member>
+        <member name="P:DallENet.DallEOptions.DefaultImageCount">
+            <summary>
+            Gets or sets the default number of images to generate for a request. Must be between 1 and 5 (default: 1).
+            </summary>
+        </member>
+        <member name="P:DallENet.DallEOptions.ThrowExceptionOnError">
+            <summary>
+            Gets or sets a value that determines whether to throw a <see cref="T:DallENet.Exceptions.DallEException"/> when an error occurred (default: <see langword="true"/>). If this property is set to <see langword="false"></see>, API errors are returned in the <see cref="T:DallENet.Models.DallEImageGenerationResponse"/> object.
+            </summary>
+            <seealso cref="T:DallENet.Exceptions.DallEException"/>
+            <seealso cref="T:DallENet.Models.DallEImageGenerationResponse"/>
+        </member>
+        <member name="T:DallENet.DallEOptionsBuilder">
+            <summary>
+            Builder class to define settings for configuring DALLE·E.
+            </summary>
+        </member>
+        <member name="P:DallENet.DallEOptionsBuilder.ServiceConfiguration">
+            <summary>
+            Gets or sets the configuration settings for accessing the service.
+            </summary>
+            <seealso cref="T:DallENet.ServiceConfigurations.DallEServiceConfiguration"/>
+            <seealso cref="T:DallENet.ServiceConfigurations.AzureDallEServiceConfiguration"/>
+        </member>
+        <member name="P:DallENet.DallEOptionsBuilder.DefaultResolution">
+            <summary>
+            Gets or sets the default resolution for image generation (default: 1024x1024).
+            </summary>
+        </member>
+        <member name="P:DallENet.DallEOptionsBuilder.DefaultImageCount">
+            <summary>
+            Gets or sets the default number of images to generate for a request. Must be between 1 and 5 (default: 1).
+            </summary>
+        </member>
+        <member name="P:DallENet.DallEOptionsBuilder.ThrowExceptionOnError">
+            <summary>
+            Gets or sets a value that determines whether to throw a <see cref="T:DallENet.Exceptions.DallEException"/> when an error occurred (default: <see langword="true"/>). If this property is set to <see langword="false"></see>, API errors are returned in the <see cref="T:DallENet.Models.DallEImageGenerationResponse"/> object.
+            </summary>
+            <seealso cref="T:DallENet.Exceptions.DallEException"/>
+            <seealso cref="T:DallENet.Models.DallEImageGenerationResponse"/>
+        </member>
+        <member name="T:DallENet.DallEOptionsBuilderExtensions">
+            <summary>
+            Provides extensions to configure settings for accessing DALLE·E service.
+            </summary>
+        </member>
+        <member name="M:DallENet.DallEOptionsBuilderExtensions.UseAzure(DallENet.DallEOptionsBuilder,System.String,System.String,DallENet.ServiceConfigurations.AzureAuthenticationType)">
+            <summary>
+            Configures Azure OpenAI Service settings.
+            </summary>
+            <param name="builder">The <see cref="T:DallENet.DallEOptionsBuilder"/> object to configure.</param>
+            <param name="resourceName">The name of the Azure OpenAI Resource.</param>
+            <param name="apiKey">The access key to access the service.</param>
+            <param name="authenticationType">Specify if <paramref name="apiKey"/> is an actual API Key or an Azure Active Directory token.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="resourceName"/> or <paramref name="apiKey"/> are <see langword="null"/>.</exception>
+            <remarks>
+            See <see href="https://learn.microsoft.com/azure/cognitive-services/openai/reference#authentication">Azure OpenAI Service Authentication</see> and <see href="https://learn.microsoft.com/azure/cognitive-services/openai/how-to/managed-identity">Authenticating with Azure Active Directory</see> for more information about authentication.
+            </remarks>
+            <seealso cref="T:DallENet.DallEOptionsBuilder"/>
+        </member>
+        <member name="M:DallENet.DallEOptionsBuilderExtensions.UseConfiguration(DallENet.DallEOptionsBuilder,Microsoft.Extensions.Configuration.IConfiguration,System.String)">
+            <summary>
+            Configures the <see cref="T:DallENet.DallEClient"/> reading configuration from the specified <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> source.
+            </summary>
+            <param name="builder">The <see cref="T:DallENet.DallEOptionsBuilder"/> object to configure.</param>
+            <param name="configuration">The <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> being bound.</param>
+            <param name="sectionName">The name of the configuration section that holds DALLE·E settings (default: DallE).</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+            <seealso cref="T:DallENet.DallEOptionsBuilder"/>
+            <seealso cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>
+        </member>
+        <member name="T:DallENet.DallEServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for adding DALLE·E support in .NET applications.
+            </summary>
+        </member>
+        <member name="M:DallENet.DallEServiceCollectionExtensions.AddDallE(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{DallENet.DallEOptionsBuilder})">
+            <summary>
+            Registers a <see cref="T:DallENet.DallEClient"/> instance with the specified options.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add services to.</param>
+            <param name="builder">The <see cref="T:DallENet.DallEOptionsBuilder"/> to configure options.</param>
+            <returns>A <see cref="T:DallENet.IDallEBuilder"/> that can be used to further customize DALLE·E.</returns>
+            <seealso cref="T:DallENet.DallEOptionsBuilder"/>
+            <seealso cref="T:DallENet.IDallEBuilder"/>
+        </member>
+        <member name="M:DallENet.DallEServiceCollectionExtensions.AddDallE(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.String)">
+            <summary>
+            Registers a <see cref="T:DallENet.DallEClient"/> instance reading configuration from the specified <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> source.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add services to.</param>
+            <param name="configuration">The <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> being bound.</param>
+            <param name="sectionName">The name of the configuration section that holds DALLE·E settings (default: DallE).</param>
+            <returns>A <see cref="T:DallENet.IDallEBuilder"/> that can be used to further customize DALLE·E.</returns>
+            <seealso cref="T:DallENet.DallEOptions"/>
+            <seealso cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>
+            <seealso cref="T:DallENet.IDallEBuilder"/>
+        </member>
+        <member name="M:DallENet.DallEServiceCollectionExtensions.AddDallE(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{System.IServiceProvider,DallENet.DallEOptionsBuilder})">
+            <summary>
+            Registers a <see cref="T:DallENet.DallEClient"/> instance using dynamic options.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add services to.</param>
+            <param name="builder">The <see cref="T:DallENet.DallEOptionsBuilder"/> to configure options.</param>
+            <returns>A <see cref="T:DallENet.IDallEBuilder"/> that can be used to further customize DALLE·E.</returns>
+            <remarks>Use this this method if it is necessary to dynamically set options (for example, using other services via dependency injection).
+            </remarks>
+            <seealso cref="T:DallENet.DallEOptions"/>
+            <seealso cref="T:System.IServiceProvider"/>
+            <seealso cref="T:DallENet.IDallEBuilder"/>
+        </member>
+        <member name="T:DallENet.Exceptions.DallEException">
+            <summary>
+            Represents errors that occur during API invocation.
+            </summary>
+        </member>
+        <member name="P:DallENet.Exceptions.DallEException.Error">
+            <summary>
+            Gets the detailed error information.
+            </summary>
+            <seealso cref="T:DallENet.Models.DallEError"/>
+        </member>
+        <member name="M:DallENet.Exceptions.DallEException.#ctor(DallENet.Models.DallEError,System.Net.HttpStatusCode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DallENet.Exceptions.DallEException"/> class with the specified <paramref name="error"/> details.
+            </summary>
+            <param name="error">The detailed error information</param>
+            <param name="statusCode">The HTTP status code</param>
+            <seealso cref="T:DallENet.Models.DallEError"/>
+            <seealso cref="T:System.Net.Http.HttpRequestException"/>
+        </member>
+        <member name="T:DallENet.IDallEBuilder">
+            <summary>
+            Represents a builder for configuring DALLE·E.
+            </summary>
+        </member>
+        <member name="P:DallENet.IDallEBuilder.Services">
+            <summary>
+            Gets the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where DALLE·E services are registered.
+            </summary>
+        </member>
+        <member name="P:DallENet.IDallEBuilder.HttpClientBuilder">
+            <summary>
+            Gets the <see cref="T:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder"/> used to configure the <see cref="T:System.Net.Http.HttpClient"/> used by DALLE·E.
+            </summary>
+        </member>
+        <member name="T:DallENet.IDallEClient">
+            <summary>
+            Provides methods to interact with DALLE·E.
+            </summary>
+        </member>
+        <member name="M:DallENet.IDallEClient.GenerateImageAsync(System.String,System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Requests a new image generation.
+            </summary>
+            <param name="prompt">A text description of the desired image(s). The maximum length is 1000 characters.</param>
+            <param name="imageCount">The number of images to generate. Must be between 1 and 5. If <see langword="null"/>, the number set in the <see cref="P:DallENet.DallEOptions.DefaultImageCount"/> will be used (default: 1).</param>
+            <param name="resolution">The size of the generated images. If <see langword="null"/>, the resolution set in the <see cref="P:DallENet.DallEOptions.DefaultResolution"/> will be used (default: 1024x1024).</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+            <returns>The image generation response.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="prompt"/> is <see langword="null"/>.</exception>
+            <exception cref="T:DallENet.Exceptions.DallEException">An error occurred while calling the API and the <see cref="P:DallENet.DallEOptions.ThrowExceptionOnError"/> is <see langword="true"/>.</exception>
+            <seealso cref="T:DallENet.Models.DallEImageGenerationResponse"/>
+            <seealso cref="T:DallENet.DallEOptions"/>
+            <seealso cref="T:DallENet.Exceptions.DallEException"/>
+        </member>
+        <member name="T:DallENet.Models.DallEError">
+            <summary>
+            Contains information about the error occurred while invoking the service.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEError.Message">
+            <summary>
+            Gets or sets the error message.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEError.Type">
+            <summary>
+            Gets or sets the error type.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEError.Parameter">
+            <summary>
+            Gets or sets the parameter that caused the error.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEError.Code">
+            <summary>
+            Gets or sets the error code.
+            </summary>
+        </member>
+        <member name="T:DallENet.Models.DallEImage">
+            <summary>
+            Represents an image.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImage.Url">
+            <summary>
+            Gets or sets the url of the image.
+            </summary>
+        </member>
+        <member name="T:DallENet.Models.DallEImageGenerationResponse">
+            <summary>
+            Represents an image generation respose.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResponse.CreatedAt">
+            <summary>
+            Gets or sets the UTC date and time at which the response has been generated.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResponse.ExpiresAt">
+            <summary>
+            Gets or sets the UTC date and time at which the response will expire.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResponse.Id">
+            <summary>
+            Gets or sets the Id of the response.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResponse.OperationId">
+            <summary>
+            Gets or sets the Operation Id that identifies the original image generation request.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResponse.Status">
+            <summary>
+            Gets or sets the status of the response.
+            </summary>
+            <remarks>
+             Possible values are: <em>notRunning</em> (task is queued but hasn't started yet), <em>running</em>, <em>succeeded</em>, <em>canceled</em> (task has timed out), <em>failed</em>, or <em>deleted</em>.
+            </remarks>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResponse.Error">
+            <summary>
+            Gets or sets the error occurred during the image generation execution, if any.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResponse.IsSuccessful">
+            <summary>
+            Gets a value that determines if the response was successful.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResponse.Result">
+            <summary>
+            Gets or sets the result that has been generated.
+            </summary>
+        </member>
+        <member name="M:DallENet.Models.DallEImageGenerationResponse.GetImageUrl">
+            <summary>
+            Gets the url of the first image, if available.
+            </summary>
+            <returns>The url of the first image, if available.</returns>
+        </member>
+        <member name="T:DallENet.Models.DallEImageGenerationResult">
+            <summary>
+            Represents an image generation result.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResult.CreatedAt">
+            <summary>
+            Gets or sets the UTC date and time at which the result has been generated.
+            </summary>
+        </member>
+        <member name="P:DallENet.Models.DallEImageGenerationResult.Images">
+            <summary>
+            Gets or sets the images associated with the current result.
+            </summary>
+        </member>
+        <member name="T:DallENet.Models.DallEImageResolutions">
+            <summary>
+            Contains all the resolutions supported by DALLE·E.
+            </summary>
+        </member>
+        <member name="F:DallENet.Models.DallEImageResolutions.Small">
+            <summary>
+            Small resolution (256x256 pixels).
+            </summary>    
+        </member>
+        <member name="F:DallENet.Models.DallEImageResolutions.Medium">
+            <summary>
+            Medium resolution (512x512).
+            </summary>
+        </member>
+        <member name="F:DallENet.Models.DallEImageResolutions.Large">
+            <summary>
+            Large resolution (1024x1024).
+            </summary>
+        </member>
+        <member name="T:DallENet.ServiceConfigurations.AzureAuthenticationType">
+            <summary>
+            Enumerates the available Azure authentication types for OpenAI service.
+            </summary>
+            <remarks>
+            See <see href="https://learn.microsoft.com/azure/cognitive-services/openai/reference#authentication">Azure OpenAI Service Authentication</see> and <see href="https://learn.microsoft.com/azure/cognitive-services/openai/how-to/managed-identity">Authenticating with Azure Active Directory</see> for more information about authentication.
+            </remarks>
+        </member>
+        <member name="F:DallENet.ServiceConfigurations.AzureAuthenticationType.ApiKey">
+            <summary>
+            Authenticates using an API key.
+            </summary>
+        </member>
+        <member name="F:DallENet.ServiceConfigurations.AzureAuthenticationType.ActiveDirectory">
+            <summary>
+            Authenticates using Azure Active Directory.
+            </summary>
+        </member>
+        <member name="P:DallENet.ServiceConfigurations.AzureDallEServiceConfiguration.ResourceName">
+            <summary>
+            Gets or sets the name of the Azure OpenAI Resource.
+            </summary>
+        </member>
+    </members>
+</doc>
