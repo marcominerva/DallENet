@@ -1,2 +1,2 @@
-# Dall·ENet
+# DallENet
 A Dall·E integration library for .NET
