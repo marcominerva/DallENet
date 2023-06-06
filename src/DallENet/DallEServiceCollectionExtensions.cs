@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace DallENet;
 
 /// <summary>
-/// Provides extension methods for adding DALLE·E support in .NET applications.
+/// Provides extension methods for adding DALL·E support in .NET applications.
 /// </summary>
 public static class DallEServiceCollectionExtensions
 {
@@ -13,7 +13,7 @@ public static class DallEServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
     /// <param name="builder">The <see cref="DallEOptionsBuilder"/> to configure options.</param>
-    /// <returns>A <see cref="IDallEBuilder"/> that can be used to further customize DALLE·E.</returns>
+    /// <returns>A <see cref="IDallEBuilder"/> that can be used to further customize DALL·E.</returns>
     /// <seealso cref="DallEOptionsBuilder"/>
     /// <seealso cref="IDallEBuilder"/>
     public static IDallEBuilder AddDallE(this IServiceCollection services, Action<DallEOptionsBuilder> builder)
@@ -36,8 +36,8 @@ public static class DallEServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> being bound.</param>
-    /// <param name="sectionName">The name of the configuration section that holds DALLE·E settings (default: DallE).</param>
-    /// <returns>A <see cref="IDallEBuilder"/> that can be used to further customize DALLE·E.</returns>
+    /// <param name="sectionName">The name of the configuration section that holds DALL·E settings (default: DallE).</param>
+    /// <returns>A <see cref="IDallEBuilder"/> that can be used to further customize DALL·E.</returns>
     /// <seealso cref="DallEOptions"/>
     /// <seealso cref="IConfiguration"/>
     /// <seealso cref="IDallEBuilder"/>
@@ -59,7 +59,7 @@ public static class DallEServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
     /// <param name="builder">The <see cref="DallEOptionsBuilder"/> to configure options.</param>
-    /// <returns>A <see cref="IDallEBuilder"/> that can be used to further customize DALLE·E.</returns>
+    /// <returns>A <see cref="IDallEBuilder"/> that can be used to further customize DALL·E.</returns>
     /// <remarks>Use this this method if it is necessary to dynamically set options (for example, using other services via dependency injection).
     /// </remarks>
     /// <seealso cref="DallEOptions"/>

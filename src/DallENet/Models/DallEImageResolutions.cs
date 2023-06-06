@@ -1,7 +1,7 @@
 ﻿namespace DallENet.Models;
 
 /// <summary>
-/// Contains all the resolutions supported by DALLE·E.
+/// Contains all the resolutions supported by DALL·E.
 /// </summary>
 public static class DallEImageResolutions
 {

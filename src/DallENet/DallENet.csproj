@@ -7,9 +7,9 @@
         <DocumentationFile>DallENet.xml</DocumentationFile>
         <Authors>Marco Minerva</Authors>
         <Company>Marco Minerva</Company>
-        <Product>DALLE·E for .NET</Product>
-        <Title>DALLE·E for .NET</Title>
-        <Description>A DALLE·E integration library for .NET</Description>
+        <Product>DALL·E for .NET</Product>
+        <Title>DALL·E for .NET</Title>
+        <Description>A DALL·E integration library for .NET</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/marcominerva/DallENet</PackageProjectUrl>
         <PackageIcon>DallENet.png</PackageIcon>

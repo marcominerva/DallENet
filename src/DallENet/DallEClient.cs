@@ -42,7 +42,7 @@ internal class DallEClient : IDallEClient
 
             var operationId = document.RootElement.GetProperty("id").GetString();
 
-            // Waits until the actual response (with images url) is available.
+            // Waits until the actual response (with images URL) is available.
             var isWorking = true;
             while (isWorking)
             {
