@@ -6,6 +6,9 @@ namespace DallENet.Models;
 /// <summary>
 /// Represents an image generation respose.
 /// </summary>
+/// <remarks>
+/// Generated images are automatically deleted after 24 hours.
+/// </remarks>
 public class DallEImageGenerationResponse
 {
     /// <summary>
@@ -56,8 +59,8 @@ public class DallEImageGenerationResponse
     public DallEImageGenerationResult Result { get; set; } = new();
 
     /// <summary>
-    /// Gets the url of the first image, if available.
+    /// Gets the URL of the first image, if available.
     /// </summary>
-    /// <returns>The url of the first image, if available.</returns>
+    /// <returns>The URL of the first image, if available.</returns>
     public string? GetImageUrl() => Result.Images.FirstOrDefault()?.Url;
 }
