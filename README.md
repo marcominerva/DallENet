@@ -87,7 +87,7 @@ The **AddDallE** method has also an overload that accepts an [IServiceProvider](
 
 In more complex scenarios, it is possible to configure **DallENet** using both code and [IConfiguration](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfiguration). This can be useful if we want to set a bunch of common properties, but at the same time we need some configuration logic. For example:
 
-    builder.Services.AddChatGpt((services, options) =>
+    builder.Services.AddDallE((services, options) =>
     {
         // Configure common properties (default resolution, default image count, ecc.) using IConfiguration.
         options.UseConfiguration(builder.Configuration);
