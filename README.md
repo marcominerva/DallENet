@@ -46,7 +46,7 @@ Using the *DefaultResolution* property, it is possible to specify the default im
 
 ### Default Image Count
 
-DALLE·E is able to generate up to 5 images for a single request. Using the *DefaultImage* property, it is possible to specify the default number of images to generate, unless you pass an explicit value in the **GenerateImageAsync** method. The default image count is 1.
+DALL·E is able to generate up to 5 images for a single request. Using the *DefaultImage* property, it is possible to specify the default number of images to generate, unless you pass an explicit value in the **GenerateImageAsync** method. The default image count is 1.
 
 ### Configuration using an external source
 
