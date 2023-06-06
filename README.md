@@ -30,8 +30,6 @@ Register DALLE·E service at application startup:
 
 Currently, **DallENet** supports Azure OpenAI Service only. Support for OpenAI will be added in a future version. The required configuration parameters are the following:
 
-##### Azure OpenAI Service (UseAzure)
-
 - _ResourceName_: the name of your Azure OpenAI Resource (required).
 - _ApiKey_: Azure OpenAI provides two methods for authentication. You can use either API Keys or Azure Active Directory (required).
 - _AuthenticationType_: it specifies if the key is an actual API Key or an [Azure Active Directory token](https://learn.microsoft.com/azure/cognitive-services/openai/how-to/managed-identity) (optional, default: "ApiKey").
@@ -70,7 +68,7 @@ And then use the corresponding overload of che **AddDallE** method:
     // Adds DALLE·E service using settings from IConfiguration.
     builder.Services.AddDallE(builder.Configuration);
 
-### Configuring ChatGptNet dinamically
+### Configuring DallENet dinamically
 
 The **AddDallE** method has also an overload that accepts an [IServiceProvider](https://learn.microsoft.com/dotnet/api/system.iserviceprovider) as argument. It can be used, for example, if we're in a Web API and we need to support scenarios in which every user has a different API Key that can be retrieved accessing a database via Dependency Injection:
 
