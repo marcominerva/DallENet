@@ -6,7 +6,7 @@
 [![Nuget](https://img.shields.io/nuget/dt/DallENet)](https://www.nuget.org/packages/DallENet)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/marcominerva/DallENet/blob/master/LICENSE)
 
-A DALLE·E integration library for .NET
+A DALL·E integration library for .NET
 
 ## Installation
 
@@ -16,7 +16,7 @@ The library is available on [NuGet](https://www.nuget.org/packages/DallENet). Ju
 
 ## Configuration
 
-Register DALLE·E service at application startup:
+Register DALL·E service at application startup:
 
     builder.Services.AddDallE(options =>
     {
@@ -36,7 +36,7 @@ Currently, **DallENet** supports Azure OpenAI Service only. Support for OpenAI w
 
 ### Default Image Resolution
 
-DALLE·E is able to generate images at different resolutions:
+DALL·E is able to generate images at different resolutions:
 
 - Small (256x256)
 - Medium (512x512)
@@ -46,7 +46,7 @@ Using the *DefaultResolution* property, it is possible to specify the default im
 
 ### Default Image Count
 
-DALLE·E is able to generate up to 5 images for a single request. Using the *DefaultImage* property, it is possible to specify the default number of images to generate, unless you pass an explicit value in the **GenerateImageAsync** method. The default image count is 1.
+DALL·E is able to generate up to 5 images for a single request. Using the *DefaultImage* property, it is possible to specify the default number of images to generate, unless you pass an explicit value in the **GenerateImageAsync** method. The default image count is 1.
 
 ### Configuration using an external source
 
@@ -65,7 +65,7 @@ The configuration can be automatically read from [IConfiguration](https://learn.
 
 And then use the corresponding overload of che **AddDallE** method:
 
-    // Adds DALLE·E service using settings from IConfiguration.
+    // Adds DALL·E service using settings from IConfiguration.
     builder.Services.AddDallE(builder.Configuration);
 
 ### Configuring DallENet dinamically

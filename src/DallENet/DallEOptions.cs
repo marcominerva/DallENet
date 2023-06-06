@@ -5,7 +5,7 @@ using DallENet.ServiceConfigurations;
 namespace DallENet;
 
 /// <summary>
-/// Options class that provides settings for configuring DALLE·E.
+/// Options class that provides settings for configuring DALL·E.
 /// </summary>
 public class DallEOptions
 {

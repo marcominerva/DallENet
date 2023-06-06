@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 namespace DallENet;
 
 /// <summary>
-/// Provides extensions to configure settings for accessing DALLE·E service.
+/// Provides extensions to configure settings for accessing DALL·E service.
 /// </summary>
 public static class DallEOptionsBuilderExtensions
 {
@@ -42,7 +42,7 @@ public static class DallEOptionsBuilderExtensions
     /// </summary>
     /// <param name="builder">The <see cref="DallEOptionsBuilder"/> object to configure.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> being bound.</param>
-    /// <param name="sectionName">The name of the configuration section that holds DALLE·E settings (default: DallE).</param>
+    /// <param name="sectionName">The name of the configuration section that holds DALL·E settings (default: DallE).</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     /// <seealso cref="DallEOptionsBuilder"/>
     /// <seealso cref="IConfiguration"/>

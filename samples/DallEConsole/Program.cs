@@ -13,10 +13,10 @@ static void ConfigureServices(HostBuilderContext context, IServiceCollection ser
 {
     services.AddSingleton<Application>();
 
-    // Adds DALLE·E service using settings from IConfiguration.
+    // Adds DALL·E service using settings from IConfiguration.
     services.AddDallE(context.Configuration);
 
-    // Adds DALLE·E service and configure options via code.
+    // Adds DALL·E service and configure options via code.
     //services.AddDallE(options =>
     //{
     //    // Azure OpenAI Service.
@@ -26,7 +26,7 @@ static void ConfigureServices(HostBuilderContext context, IServiceCollection ser
     //    options.DefaultImageCount = 2;  // Default: 1
     //});
 
-    // Adds DALLE·E service using settings from IConfiguration and code.
+    // Adds DALL·E service using settings from IConfiguration and code.
     //services.AddDallE(options =>
     //{
     //    options.UseConfiguration(context.Configuration);

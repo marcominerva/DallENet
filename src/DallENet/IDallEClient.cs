@@ -4,7 +4,7 @@ using DallENet.Models;
 namespace DallENet;
 
 /// <summary>
-/// Provides methods to interact with DALLE·E.
+/// Provides methods to interact with DALL·E.
 /// </summary>
 public interface IDallEClient
 {

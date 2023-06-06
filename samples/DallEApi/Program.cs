@@ -13,10 +13,10 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
-// Adds DALLE·E service using settings from IConfiguration.
+// Adds DALL·E service using settings from IConfiguration.
 builder.Services.AddDallE(builder.Configuration);
 
-// Adds DALLE·E service and configure options via code.
+// Adds DALL·E service and configure options via code.
 //services.AddDallE(options =>
 //{
 //    // Azure OpenAI Service.
@@ -26,7 +26,7 @@ builder.Services.AddDallE(builder.Configuration);
 //    options.DefaultImageCount = 2;  // Default: 1
 //});
 
-// Adds DALLE·E service using settings from IConfiguration and code.
+// Adds DALL·E service using settings from IConfiguration and code.
 //services.AddDallE(options =>
 //{
 //    options.UseConfiguration(context.Configuration);
@@ -89,7 +89,7 @@ app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.RoutePrefix = string.Empty;
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "DALLE·E API v1");
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "DALL·E API v1");
 });
 
 app.MapPost("/api/image", async (Request request, string? resolution, int? imageCount, IDallEClient dallEClient) =>
