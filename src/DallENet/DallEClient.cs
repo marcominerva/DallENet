@@ -48,7 +48,7 @@ internal class DallEClient : IDallEClient
         var request = CreateRequest(prompt, imageCount, resolution);
 
         var requestUri = options.ServiceConfiguration.GetImageGenerationEndpoint();
-        using var httpResponse = await httpClient.PostAsJsonAsync<object>(requestUri, request, cancellationToken);
+        using var httpResponse = await httpClient.PostAsJsonAsync(requestUri, request, cancellationToken);
 
         DallEImageGenerationResponse? response = null;
         if (httpResponse.IsSuccessStatusCode)
@@ -86,6 +86,20 @@ internal class DallEClient : IDallEClient
         }
 
         return response;
+    }
+
+    public async Task DeleteImagesAsync(string operationId, CancellationToken cancellationToken = default)
+    {
+        var requestUri = options.ServiceConfiguration.GetDeleteImageEndpoint(operationId);
+        using var httpResponse = await httpClient.DeleteAsync(requestUri, cancellationToken);
+
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            var response = await httpResponse.Content.ReadFromJsonAsync<DallEImageGenerationResponse>(cancellationToken: cancellationToken);
+            EnsureErrorIsSet(response!, httpResponse);
+
+            throw new DallEException(response!.Error, httpResponse.StatusCode);
+        }
     }
 
     private DallEImageGenerationRequest CreateRequest(string prompt, int? imageCount = null, string? resolution = null)

@@ -8,6 +8,8 @@ internal abstract class DallEServiceConfiguration
 
     public abstract Uri GetImageGenerationEndpoint();
 
+    public abstract Uri GetDeleteImageEndpoint(string operationId);
+
     public abstract IDictionary<string, string?> GetRequestHeaders();
 
     internal static DallEServiceConfiguration Create(IConfiguration configuration)

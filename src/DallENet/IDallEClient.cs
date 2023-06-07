@@ -37,4 +37,17 @@ public interface IDallEClient
     /// <seealso cref="DallEOptions"/>
     /// <seealso cref="DallEException"/>
     Task<Stream> GetImageStreamAsync(string prompt, string? resolution = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Triggers the deletion of generated images.
+    /// </summary>
+    /// <param name="operationId">The GUID that identifies the original image generation request.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>The <see cref="Task"/> corresponding to the asynchronous operation.</returns>
+    /// <exception cref="DallEException">An error occurred while calling the API.</exception>
+    /// <remarks>
+    /// Generated images are automatically deleted after 24 hours by default, but this method can be used to explicitly trigger the deletion earlier.
+    /// This method deletes all the images that have been generated in the request associated with the given <paramref name="operationId"/>.
+    /// </remarks>
+    Task DeleteImagesAsync(string operationId, CancellationToken cancellationToken = default);
 }
