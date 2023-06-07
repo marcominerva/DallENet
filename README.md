@@ -107,7 +107,7 @@ The library can be used in any .NET application built with .NET 6.0 or later. Fo
 
     app.MapPost("/api/image", async (Request request, IDallEClient dallEClient) =>
     {
-        var response = await dallEClient.GenerateImageAsync(request.Prompt);
+        var response = await dallEClient.GenerateImagesAsync(request.Prompt);
         return TypedResults.Ok(response);
     })
     .WithOpenApi();
@@ -122,6 +122,17 @@ In particular, the response contains the URL (or the list of URLs) of generated 
 Generated images are automatically deleted after 24 hours.
 
 Check the [Samples folder](https://github.com/marcominerva/DallENet/tree/master/samples) for more information about the different implementations.
+
+### Deleting generated images
+
+Generated images are automatically deleted after 24 hours. If necessary, it is possible to explicitly trigger the deletion earlier using the **DeleteImagesAsync** method:
+
+    await dallECliente.DeleteImagesAsync(response.OperationId);
+
+The _operationId_ argument is a GUID that identifies the original image generation request and is returned when calling the **GenerateImagesAsync** method.
+
+> **Note**
+This method deletes all the images that have been generated in the request associated with the given _OperationId_.
 
 ## Contribute
 

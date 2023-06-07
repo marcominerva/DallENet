@@ -37,6 +37,12 @@ internal class AzureDallEServiceConfiguration : DallEServiceConfiguration
         return endpoint;
     }
 
+    public override Uri GetDeleteImageEndpoint(string operationId)
+    {
+        var endpoint = new Uri($"https://{ResourceName}.openai.azure.com/openai/operations/images/{operationId}?api-version={ApiVersion}");
+        return endpoint;
+    }
+
     public override IDictionary<string, string?> GetRequestHeaders()
     {
         var headers = new Dictionary<string, string?>();

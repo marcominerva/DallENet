@@ -1,9 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 using DallENet;
-using DallENet.Models;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalHelpers.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -94,24 +92,15 @@ app.UseSwaggerUI(options =>
 
 app.MapPost("/api/image", async (Request request, string? resolution, int? imageCount, IDallEClient dallEClient) =>
 {
-    var response = await dallEClient.GenerateImageAsync(request.Prompt, imageCount, resolution);
+    var response = await dallEClient.GenerateImagesAsync(request.Prompt, imageCount, resolution);
     return TypedResults.Ok(response);
 })
 .WithOpenApi();
 
-app.MapPost("/api/image-content", async Task<Results<FileStreamHttpResult, BadRequest<DallEImageGenerationResponse>>> (Request request, string? resolution, IDallEClient dallEClient, IHttpClientFactory httpClientFactory) =>
+app.MapPost("/api/image-content", async (Request request, string? resolution, IDallEClient dallEClient) =>
 {
-    var response = await dallEClient.GenerateImageAsync(request.Prompt, imageCount: 1, resolution);
-
-    if (response.IsSuccessful)
-    {
-        var imageUrl = response.GetImageUrl();
-        var imageStream = await httpClientFactory.CreateClient().GetStreamAsync(imageUrl);
-        return TypedResults.Stream(imageStream, "image/png");
-    }
-
-    return TypedResults.BadRequest(response);
-
+    var imageStream = await dallEClient.GetImageStreamAsync(request.Prompt, resolution);
+    return TypedResults.Stream(imageStream, "image/png");
 })
 .WithOpenApi();
 
