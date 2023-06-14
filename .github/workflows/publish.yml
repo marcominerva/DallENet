@@ -1,4 +1,4 @@
-name: Publish Dall·E for .NET on NuGet
+name: Publish DALL·E for .NET on NuGet
  
 on:
   push:
