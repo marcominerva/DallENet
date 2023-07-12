@@ -14,6 +14,7 @@ public static class DallEOptionsBuilderExtensions
     /// <param name="builder">The <see cref="DallEOptionsBuilder"/> object to configure.</param>
     /// <param name="resourceName">The name of the Azure OpenAI Resource.</param>
     /// <param name="apiKey">The access key to access the service.</param>
+    /// <param name="apiVersion">The API version of the Azure OpenAI service</param>
     /// <param name="authenticationType">Specify if <paramref name="apiKey"/> is an actual API Key or an Azure Active Directory token.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="resourceName"/> or <paramref name="apiKey"/> are <see langword="null"/>.</exception>
@@ -21,16 +22,18 @@ public static class DallEOptionsBuilderExtensions
     /// See <see href="https://learn.microsoft.com/azure/cognitive-services/openai/reference#authentication">Azure OpenAI Service Authentication</see> and <see href="https://learn.microsoft.com/azure/cognitive-services/openai/how-to/managed-identity">Authenticating with Azure Active Directory</see> for more information about authentication.
     /// </remarks>
     /// <seealso cref="DallEOptionsBuilder"/>
-    public static DallEOptionsBuilder UseAzure(this DallEOptionsBuilder builder, string resourceName, string apiKey, AzureAuthenticationType authenticationType = AzureAuthenticationType.ApiKey)
+    public static DallEOptionsBuilder UseAzure(this DallEOptionsBuilder builder, string resourceName, string apiKey, string apiVersion = AzureDallEServiceConfiguration.DefaultApiVersion, AzureAuthenticationType authenticationType = AzureAuthenticationType.ApiKey)
     {
         ArgumentNullException.ThrowIfNull(builder);
         ArgumentNullException.ThrowIfNull(resourceName);
         ArgumentNullException.ThrowIfNull(apiKey);
+        ArgumentNullException.ThrowIfNull(apiVersion);
 
         builder.ServiceConfiguration = new AzureDallEServiceConfiguration
         {
             ResourceName = resourceName,
             ApiKey = apiKey,
+            ApiVersion = apiVersion,
             AuthenticationType = authenticationType
         };
 
