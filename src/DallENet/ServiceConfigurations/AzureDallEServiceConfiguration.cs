@@ -4,12 +4,29 @@ namespace DallENet.ServiceConfigurations;
 
 internal class AzureDallEServiceConfiguration : DallEServiceConfiguration
 {
-    private const string ApiVersion = "2023-06-01-preview";
+    /// <summary>
+    /// The default API version for Azure OpenAI service.
+    /// </summary>
+    public const string DefaultApiVersion = "2023-06-01-preview";
 
     /// <summary>
     /// Gets or sets the name of the Azure OpenAI Resource.
     /// </summary>
     public string? ResourceName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the API version of the Azure OpenAI service (Default: 2023-06-01-preview).
+    /// </summary>
+    /// <remarks>
+    /// Currently supported versions are:
+    /// <list type = "bullet" >
+    ///   <item>
+    ///     <term>2023-06-01-preview</term>
+    ///     <description><see href="https://github.com/Azure/azure-rest-api-specs/blob/main/specification/cognitiveservices/data-plane/AzureOpenAI/inference/preview/2023-06-01-preview/inference.json">Swagger spec</see></description>
+    ///   </item>
+    /// </list>
+    /// </remarks>
+    public string ApiVersion { get; set; } = DefaultApiVersion;
 
     public AzureAuthenticationType AuthenticationType { get; set; }
 
@@ -23,6 +40,8 @@ internal class AzureDallEServiceConfiguration : DallEServiceConfiguration
 
         ResourceName = configuration.GetValue<string>("ResourceName");
         ArgumentNullException.ThrowIfNull(nameof(ResourceName));
+
+        ApiVersion = configuration.GetValue<string>("ApiVersion") ?? DefaultApiVersion;
 
         AuthenticationType = configuration.GetValue<string>("AuthenticationType")?.ToLowerInvariant() switch
         {
