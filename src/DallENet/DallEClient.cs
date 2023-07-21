@@ -68,16 +68,15 @@ internal class DallEClient : IDallEClient
                 await Task.Delay(retryAfter, cancellationToken);
 
                 response = await httpClient.GetFromJsonAsync<DallEImageGenerationResponse>(operationLocation, cancellationToken);
-                EnsureErrorIsSet(response!, httpResponse);
-                response!.OperationId = operationId ?? string.Empty;
+                NormalizeRenspose(response!, httpResponse, operationId);
 
-                isRunning = response.Status is "notRunning" or "running";
+                isRunning = response!.Status is "notRunning" or "running";
             }
         }
         else
         {
             response = await httpResponse.Content.ReadFromJsonAsync<DallEImageGenerationResponse>(cancellationToken: cancellationToken);
-            EnsureErrorIsSet(response!, httpResponse);
+            NormalizeRenspose(response!, httpResponse, null);
         }
 
         if (!response!.IsSuccessful && options.ThrowExceptionOnError)
@@ -96,7 +95,7 @@ internal class DallEClient : IDallEClient
         if (!httpResponse.IsSuccessStatusCode)
         {
             var response = await httpResponse.Content.ReadFromJsonAsync<DallEImageGenerationResponse>(cancellationToken: cancellationToken);
-            EnsureErrorIsSet(response!, httpResponse);
+            NormalizeRenspose(response!, httpResponse, operationId);
 
             throw new DallEException(response!.Error, httpResponse.StatusCode);
         }
@@ -110,8 +109,10 @@ internal class DallEClient : IDallEClient
             ImageCount = imageCount ?? options.DefaultImageCount
         };
 
-    private static void EnsureErrorIsSet(DallEImageGenerationResponse response, HttpResponseMessage httpResponse)
+    private static void NormalizeRenspose(DallEImageGenerationResponse response, HttpResponseMessage httpResponse, string? operationId)
     {
+        response.OperationId = operationId;
+
         if (!httpResponse.IsSuccessStatusCode && response.Error is null)
         {
             response.Error = new DallEError

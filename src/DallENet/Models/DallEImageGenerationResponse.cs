@@ -33,7 +33,7 @@ public class DallEImageGenerationResponse
     /// <summary>
     /// Gets or sets the Operation Id that identifies the original image generation request.
     /// </summary>
-    public string OperationId { get; set; } = string.Empty;
+    public string? OperationId { get; set; }
 
     /// <summary>
     /// Gets or sets the status of the response.
