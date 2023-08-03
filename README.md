@@ -130,7 +130,7 @@ Check the [Samples folder](https://github.com/marcominerva/DallENet/tree/master/
 
 Generated images are automatically deleted after 24 hours. If necessary, it is possible to explicitly trigger the deletion earlier using the **DeleteImagesAsync** method:
 
-    await dallECliente.DeleteImagesAsync(response.OperationId);
+    await dallECliente.DeleteImagesAsync(response.Id);
 
 The _operationId_ argument is a GUID that identifies the original image generation request and is returned when calling the **GenerateImagesAsync** method.
 
