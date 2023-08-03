@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 using DallENet.Models.Converters;
 
 namespace DallENet.Models;
@@ -31,11 +32,6 @@ public class DallEImageGenerationResponse
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the Operation Id that identifies the original image generation request.
-    /// </summary>
-    public string OperationId { get; set; } = string.Empty;
-
-    /// <summary>
     /// Gets or sets the status of the response.
     /// </summary>
     /// <remarks>
@@ -51,6 +47,7 @@ public class DallEImageGenerationResponse
     /// <summary>
     /// Gets a value that determines if the response was successful.
     /// </summary>
+    [MemberNotNullWhen(false, nameof(Error))]
     public bool IsSuccessful => Error is null;
 
     /// <summary>

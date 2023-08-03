@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using System.Text.Json;
 using DallENet.Exceptions;
 using DallENet.Models;
 
@@ -56,11 +55,6 @@ internal class DallEClient : IDallEClient
             var operationLocation = httpResponse.Headers.GetValues("Operation-Location").FirstOrDefault();
             var retryAfter = httpResponse.Headers.RetryAfter?.Delta ?? TimeSpan.FromSeconds(10);
 
-            using var responseStream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
-            using var document = await JsonDocument.ParseAsync(responseStream, cancellationToken: cancellationToken);
-
-            var operationId = document.RootElement.GetProperty("id").GetString();
-
             // Waits until the actual response (with images URL) is available.
             var isRunning = true;
             while (isRunning)
@@ -68,16 +62,15 @@ internal class DallEClient : IDallEClient
                 await Task.Delay(retryAfter, cancellationToken);
 
                 response = await httpClient.GetFromJsonAsync<DallEImageGenerationResponse>(operationLocation, cancellationToken);
-                EnsureErrorIsSet(response!, httpResponse);
-                response!.OperationId = operationId ?? string.Empty;
+                NormalizeRenspose(response!, httpResponse);
 
-                isRunning = response.Status is "notRunning" or "running";
+                isRunning = response!.Status is "notRunning" or "running";
             }
         }
         else
         {
             response = await httpResponse.Content.ReadFromJsonAsync<DallEImageGenerationResponse>(cancellationToken: cancellationToken);
-            EnsureErrorIsSet(response!, httpResponse);
+            NormalizeRenspose(response!, httpResponse);
         }
 
         if (!response!.IsSuccessful && options.ThrowExceptionOnError)
@@ -96,7 +89,7 @@ internal class DallEClient : IDallEClient
         if (!httpResponse.IsSuccessStatusCode)
         {
             var response = await httpResponse.Content.ReadFromJsonAsync<DallEImageGenerationResponse>(cancellationToken: cancellationToken);
-            EnsureErrorIsSet(response!, httpResponse);
+            NormalizeRenspose(response!, httpResponse);
 
             throw new DallEException(response!.Error, httpResponse.StatusCode);
         }
@@ -110,7 +103,7 @@ internal class DallEClient : IDallEClient
             ImageCount = imageCount ?? options.DefaultImageCount
         };
 
-    private static void EnsureErrorIsSet(DallEImageGenerationResponse response, HttpResponseMessage httpResponse)
+    private static void NormalizeRenspose(DallEImageGenerationResponse response, HttpResponseMessage httpResponse)
     {
         if (!httpResponse.IsSuccessStatusCode && response.Error is null)
         {
