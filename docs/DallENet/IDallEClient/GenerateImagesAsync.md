@@ -25,6 +25,7 @@ The image generation response.
 | --- | --- |
 | ArgumentNullException | *prompt* is `null`. |
 | [DallEException](../../DallENet.Exceptions/DallEException.md) | An error occurred while calling the API and the [`ThrowExceptionOnError`](../DallEOptions/ThrowExceptionOnError.md) is `true`. |
+| ArgumentOutOfRangeException | *imageCount* is not between 1 and 5. |
 
 ## See Also
 

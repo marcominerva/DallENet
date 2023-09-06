@@ -1,4 +1,38 @@
-# IDallEClient.GetImageStreamAsync method
+# IDallEClient.GetImageStreamAsync method (1 of 2)
+
+Returns the Stream containing the image at the specified *index* in the response.
+
+```csharp
+public Task<Stream> GetImageStreamAsync(DallEImageGenerationResponse response, int index = 0, 
+    CancellationToken cancellationToken = default)
+```
+
+| parameter | description |
+| --- | --- |
+| response | The response of a previous image generation request |
+| index | The index of the image to get the Stream for (default: 0).. |
+| cancellationToken | The token to monitor for cancellation requests. |
+
+## Return Value
+
+The Stream containing the image
+
+## Remarks
+
+If an error occurred, this method throws a [`DallEException`](../../DallENet.Exceptions/DallEException.md) no matter the value of the [`ThrowExceptionOnError`](../DallEOptions/ThrowExceptionOnError.md) property.
+
+## See Also
+
+* method [GenerateImagesAsync](./GenerateImagesAsync.md)
+* method [GetImageStreamAsync](./GetImageStreamAsync.md)
+* class [DallEException](../../DallENet.Exceptions/DallEException.md)
+* class [DallEImageGenerationResponse](../../DallENet.Models/DallEImageGenerationResponse.md)
+* interface [IDallEClient](../IDallEClient.md)
+* namespace [DallENet](../../DallENet.md)
+
+---
+
+# IDallEClient.GetImageStreamAsync method (2 of 2)
 
 Requests a new image generation and directly returns the Stream containing the image.
 
