@@ -40,6 +40,20 @@ public interface IDallEClient
     Task<Stream> GetImageStreamAsync(string prompt, string? resolution = null, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Returns the <see cref="Stream"/> containing the image at the specified <paramref name="index"/> in the response.
+    /// </summary>
+    /// <param name="response">The response of a previous image generation request</param>
+    /// <param name="index">The index of the image to get the <see cref="Stream"/> for (default: 0)..</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>The <see cref="Stream"/> containing the image</returns>
+    /// <remarks>If an error occurred, this method throws a <see cref="DallEException"/> no matter the value of the <see cref="DallEOptions.ThrowExceptionOnError"/> property.</remarks>
+    /// <seealso cref="GenerateImagesAsync(string, int?, string?, CancellationToken)"/>
+    /// <seealso cref="GetImageStreamAsync(string, string?, CancellationToken)"/>
+    /// <seealso cref="Stream"/>
+    /// <seealso cref="DallEException"/>
+    Task<Stream> GetImageStreamAsync(DallEImageGenerationResponse response, int index = 0, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Triggers the deletion of generated images.
     /// </summary>
     /// <param name="operationId">The GUID that identifies the original image generation request.</param>

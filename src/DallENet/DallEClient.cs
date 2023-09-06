@@ -27,9 +27,15 @@ internal class DallEClient : IDallEClient
         // When requesting an image stream, always generate a single image.
         var response = await GenerateImagesAsync(prompt, 1, resolution, cancellationToken);
 
+        var stream = await GetImageStreamAsync(response, 0, cancellationToken);
+        return stream;
+    }
+
+    public async Task<Stream> GetImageStreamAsync(DallEImageGenerationResponse response, int index = 0, CancellationToken cancellationToken = default)
+    {
         if (response.IsSuccessful)
         {
-            var imageUrl = response.GetImageUrl();
+            var imageUrl = response.GetImageUrl(index);
             var imageStream = await httpClient.GetStreamAsync(imageUrl, cancellationToken);
 
             return imageStream;
