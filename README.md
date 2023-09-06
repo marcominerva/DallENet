@@ -137,6 +137,10 @@ The _operationId_ argument is a GUID that identifies the original image generati
 > **Note**
 This method deletes all the images that have been generated in the request associated with the given _OperationId_.
 
+## Documentation
+
+The full technical documentation is available [here](https://github.com/marcominerva/DallENet/tree/master/docs).
+
 ## Contribute
 
 The project is constantly evolving. Contributions are welcome. Feel free to file issues and pull requests on the repo and we'll address them as we can. 

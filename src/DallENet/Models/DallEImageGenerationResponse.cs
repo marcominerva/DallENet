@@ -56,8 +56,9 @@ public class DallEImageGenerationResponse
     public DallEImageGenerationResult Result { get; set; } = new();
 
     /// <summary>
-    /// Gets the URL of the first image, if available.
+    /// Gets the URL of the specified image, if available.
     /// </summary>
+    /// <param name="index">The index of the image to get the URL for (default: 0).</param>
     /// <returns>The URL of the first image, if available.</returns>
-    public string? GetImageUrl() => Result.Images.FirstOrDefault()?.Url;
+    public string? GetImageUrl(int index = 0) => Result.Images.ElementAtOrDefault(index)?.Url;
 }

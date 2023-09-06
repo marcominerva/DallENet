@@ -16,10 +16,9 @@ public class DallEImageGenerationResponse
 | [ExpiresAt](DallEImageGenerationResponse/ExpiresAt.md) { get; set; } | Gets or sets the UTC date and time at which the response will expire. |
 | [Id](DallEImageGenerationResponse/Id.md) { get; set; } | Gets or sets the Id of the response. |
 | [IsSuccessful](DallEImageGenerationResponse/IsSuccessful.md) { get; } | Gets a value that determines if the response was successful. |
-| [OperationId](DallEImageGenerationResponse/OperationId.md) { get; set; } | Gets or sets the Operation Id that identifies the original image generation request. |
 | [Result](DallEImageGenerationResponse/Result.md) { get; set; } | Gets or sets the result that has been generated. |
 | [Status](DallEImageGenerationResponse/Status.md) { get; set; } | Gets or sets the status of the response. |
-| [GetImageUrl](DallEImageGenerationResponse/GetImageUrl.md)() | Gets the URL of the first image, if available. |
+| [GetImageUrl](DallEImageGenerationResponse/GetImageUrl.md)(…) | Gets the URL of the specified image, if available. |
 
 ## Remarks
 

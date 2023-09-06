@@ -1,10 +1,14 @@
 # DallEImageGenerationResponse.GetImageUrl method
 
-Gets the URL of the first image, if available.
+Gets the URL of the specified image, if available.
 
 ```csharp
-public string? GetImageUrl()
+public string? GetImageUrl(int index = 0)
 ```
+
+| parameter | description |
+| --- | --- |
+| index | The index of the image to get the URL for (default: 0). |
 
 ## Return Value
 

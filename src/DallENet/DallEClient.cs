@@ -27,9 +27,15 @@ internal class DallEClient : IDallEClient
         // When requesting an image stream, always generate a single image.
         var response = await GenerateImagesAsync(prompt, 1, resolution, cancellationToken);
 
+        var stream = await GetImageStreamAsync(response, 0, cancellationToken);
+        return stream;
+    }
+
+    public async Task<Stream> GetImageStreamAsync(DallEImageGenerationResponse response, int index = 0, CancellationToken cancellationToken = default)
+    {
         if (response.IsSuccessful)
         {
-            var imageUrl = response.GetImageUrl();
+            var imageUrl = response.GetImageUrl(index);
             var imageStream = await httpClient.GetStreamAsync(imageUrl, cancellationToken);
 
             return imageStream;
@@ -45,6 +51,11 @@ internal class DallEClient : IDallEClient
         ArgumentNullException.ThrowIfNull(prompt);
 
         var request = CreateRequest(prompt, imageCount, resolution);
+
+        if (request.ImageCount is < 1 or > 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(imageCount), "The number of images to generate must be between 1 and 5.");
+        }
 
         var requestUri = options.ServiceConfiguration.GetImageGenerationEndpoint();
         using var httpResponse = await httpClient.PostAsJsonAsync(requestUri, request, cancellationToken);
