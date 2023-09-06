@@ -46,6 +46,11 @@ internal class DallEClient : IDallEClient
 
         var request = CreateRequest(prompt, imageCount, resolution);
 
+        if (request.ImageCount is < 1 or > 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(imageCount), "The number of images to generate must be between 1 and 5.");
+        }
+
         var requestUri = options.ServiceConfiguration.GetImageGenerationEndpoint();
         using var httpResponse = await httpClient.PostAsJsonAsync(requestUri, request, cancellationToken);
 

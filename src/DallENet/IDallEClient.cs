@@ -18,6 +18,7 @@ public interface IDallEClient
     /// <returns>The image generation response.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="prompt"/> is <see langword="null"/>.</exception>
     /// <exception cref="DallEException">An error occurred while calling the API and the <see cref="DallEOptions.ThrowExceptionOnError"/> is <see langword="true"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="imageCount"/> is not between 1 and 5.</exception>
     /// <seealso cref="DallEImageGenerationResponse"/>
     /// <seealso cref="DallEOptions"/>
     /// <seealso cref="DallEException"/>
