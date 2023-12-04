@@ -4,11 +4,15 @@ namespace DallENet.Models;
 
 internal class DallEImageGenerationRequest
 {
-    public string? Prompt { get; set; }
+    public string Prompt { get; set; } = null!;
 
     [JsonPropertyName("size")]
-    public string Resolution { get; set; } = DallEImageResolutions.Large;
+    public string Size { get; set; } = DallEImageSizes._1024x1024;
 
-    [JsonPropertyName("n")]
-    public int ImageCount { get; set; } = 1;
+    public string Quality { get; set; } = DallEImageQualities.Standard;
+
+    [JsonPropertyName("response_format")]
+    public string ResponseFormat { get; set; } = DallEImageResponseFormats.Url;
+
+    public string Style { get; set; } = DallEImageStyles.Vivid;
 }

@@ -90,16 +90,16 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "DALL·E API v1");
 });
 
-app.MapPost("/api/image", async (Request request, string? resolution, int? imageCount, IDallEClient dallEClient) =>
+app.MapPost("/api/image", async (Request request, IDallEClient dallEClient) =>
 {
-    var response = await dallEClient.GenerateImagesAsync(request.Prompt, imageCount, resolution);
+    var response = await dallEClient.GenerateImagesAsync(request.Prompt);
     return TypedResults.Ok(response);
 })
 .WithOpenApi();
 
-app.MapPost("/api/image-content", async (Request request, string? resolution, IDallEClient dallEClient) =>
+app.MapPost("/api/image-content", async (Request request, IDallEClient dallEClient) =>
 {
-    var imageStream = await dallEClient.GetImageStreamAsync(request.Prompt, resolution);
+    var imageStream = await dallEClient.GetImageStreamAsync(request.Prompt);
     return TypedResults.Stream(imageStream, "image/png");
 })
 .WithOpenApi();
