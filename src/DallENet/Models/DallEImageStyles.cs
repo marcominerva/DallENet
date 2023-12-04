@@ -11,7 +11,7 @@ public static class DallEImageStyles
     public const string Natural = "natural";
 
     /// <summary>
-    /// Vivid image style, for hyper-realistic / dramatic images
+    /// Vivid image style, for hyper-realistic / dramatic images.
     /// </summary>
     public const string Vivid = "vivid";
 }
