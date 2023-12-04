@@ -13,5 +13,5 @@ public static class DallEImageResponseFormats
     /// <summary>
     /// The response will be the base 64 byte code in JSON format.
     /// </summary>
-    public const string Base64Json = "b64_json";
+    public const string Base64 = "b64_json";
 }

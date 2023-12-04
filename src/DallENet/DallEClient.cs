@@ -25,7 +25,6 @@ internal class DallEClient : IDallEClient
 
     public async Task<Stream> GetImageStreamAsync(string prompt, string? size = null, string? quality = null, string? style = null, string? model = null, CancellationToken cancellationToken = default)
     {
-        // When requesting an image stream, always generate a single image.
         var response = await GenerateImagesAsync(prompt, size, quality, style, DallEImageResponseFormats.Url, model, cancellationToken);
 
         var stream = await GetImageStreamAsync(response, cancellationToken);
@@ -88,6 +87,4 @@ internal class DallEClient : IDallEClient
             };
         }
     }
-
-    public Task<Stream> GetImageStreamAsync(DallEImageGenerationResponse response, int index = 0, CancellationToken cancellationToken = default) => throw new NotImplementedException();
 }

@@ -1,19 +1,11 @@
 ﻿using System.Diagnostics;
 using DallENet;
 using DallENet.Extensions;
-using DallENet.Models;
 
 namespace DallEConsole;
 
-internal class Application
+internal class Application(IDallEClient dallEClient)
 {
-    private readonly IDallEClient dallEClient;
-
-    public Application(IDallEClient dallEClient)
-    {
-        this.dallEClient = dallEClient;
-    }
-
     public async Task ExecuteAsync()
     {
         string? prompt = null;
@@ -29,9 +21,10 @@ internal class Application
                 {
                     Console.Write("I'm working... ");
 
-                    var response = await dallEClient.GenerateImagesAsync(prompt, imageResponseFormat: DallEImageResponseFormats.Base64Json);
+                    var response = await dallEClient.GenerateImagesAsync(prompt);
 
                     var imageUrl = response.GetImageUrl();
+
                     if (!string.IsNullOrWhiteSpace(imageUrl))
                     {
                         Console.WriteLine("Opening generated image.");

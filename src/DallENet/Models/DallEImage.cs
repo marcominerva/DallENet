@@ -22,7 +22,7 @@ public class DallEImage
     /// Gets or sets the base64 byte code of the image in JSON format.
     /// </summary>
     [JsonPropertyName("b64_json")]
-    public string? Base64Json { get; set; }
+    public string? Base64 { get; set; }
 
     /// <summary>
     /// Gets or sets the actual prompt that has been used to generate the image.

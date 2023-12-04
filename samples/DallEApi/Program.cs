@@ -1,8 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 using DallENet;
-using Microsoft.AspNetCore.Diagnostics;
-using MinimalHelpers.OpenApi;
+using DallENet.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,10 +34,7 @@ builder.Services.AddDallE(builder.Configuration);
 //});
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddMissingSchemas();
-});
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddProblemDetails(options =>
 {
@@ -53,34 +49,7 @@ var app = builder.Build();
 // Configures the HTTP request pipeline.
 app.UseHttpsRedirection();
 
-if (!app.Environment.IsDevelopment())
-{
-    // Error handling
-    app.UseExceptionHandler(new ExceptionHandlerOptions
-    {
-        AllowStatusCode404Response = true,
-        ExceptionHandler = async (HttpContext context) =>
-        {
-            var problemDetailsService = context.RequestServices.GetRequiredService<IProblemDetailsService>();
-            var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
-            var error = exceptionHandlerFeature?.Error;
-
-            // Writes as JSON problem details
-            await problemDetailsService.WriteAsync(new()
-            {
-                HttpContext = context,
-                AdditionalMetadata = exceptionHandlerFeature?.Endpoint?.Metadata,
-                ProblemDetails =
-                {
-                    Status = context.Response.StatusCode,
-                    Title = error?.GetType().FullName ?? "An error occurred while processing your request",
-                    Detail = error?.Message
-                }
-            });
-        }
-    });
-}
-
+app.UseExceptionHandler();
 app.UseStatusCodePages();
 
 app.UseSwagger();
@@ -92,18 +61,18 @@ app.UseSwaggerUI(options =>
 
 app.MapPost("/api/image", async (Request request, IDallEClient dallEClient) =>
 {
-    var response = await dallEClient.GenerateImagesAsync(request.Prompt);
+    var response = await dallEClient.GenerateImagesAsync(request.Prompt, request.Size, request.Quality, request.Style);
     return TypedResults.Ok(response);
 })
 .WithOpenApi();
 
 app.MapPost("/api/image-content", async (Request request, IDallEClient dallEClient) =>
 {
-    var imageStream = await dallEClient.GetImageStreamAsync(request.Prompt);
+    var imageStream = await dallEClient.GetImageStreamAsync(request.Prompt, request.Size, request.Quality, request.Style);
     return TypedResults.Stream(imageStream, "image/png");
 })
 .WithOpenApi();
 
 app.Run();
 
-public record class Request(string Prompt);
+public record class Request(string Prompt, string? Size = DallEImageSizes._1024x1024, string? Quality = DallEImageQualities.Standard, string? Style = DallEImageStyles.Vivid);
