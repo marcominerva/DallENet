@@ -20,26 +20,6 @@ public class DallEImageGenerationResponse
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     /// <summary>
-    /// Gets or sets the UTC date and time at which the response will expire.
-    /// </summary>
-    [JsonPropertyName("expires")]
-    [JsonConverter(typeof(UnixToDateTimeConverter))]
-    public DateTime? ExpiresAt { get; set; }
-
-    /// <summary>
-    /// Gets or sets the Id of the response.
-    /// </summary>
-    public string Id { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the status of the response.
-    /// </summary>
-    /// <remarks>
-    ///  Possible values are: <em>notRunning</em> (task is queued but hasn't started yet), <em>running</em>, <em>succeeded</em>, <em>canceled</em> (task has timed out), <em>failed</em>, or <em>deleted</em>.
-    /// </remarks>
-    public string Status { get; set; } = string.Empty;
-
-    /// <summary>
     /// Gets or sets the error occurred during the image generation execution, if any.
     /// </summary>
     public DallEError? Error { get; set; }
@@ -51,14 +31,8 @@ public class DallEImageGenerationResponse
     public bool IsSuccessful => Error is null;
 
     /// <summary>
-    /// Gets or sets the result that has been generated.
+    /// Gets or sets the image that has been generated.
     /// </summary>
-    public DallEImageGenerationResult Result { get; set; } = new();
-
-    /// <summary>
-    /// Gets the URL of the specified image, if available.
-    /// </summary>
-    /// <param name="index">The index of the image to get the URL for (default: 0).</param>
-    /// <returns>The URL of the first image, if available.</returns>
-    public string? GetImageUrl(int index = 0) => Result.Images.ElementAtOrDefault(index)?.Url;
+    [JsonPropertyName("data")]
+    public IEnumerable<DallEImage> Images { get; set; } = Enumerable.Empty<DallEImage>();
 }

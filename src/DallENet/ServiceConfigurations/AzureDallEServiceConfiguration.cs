@@ -5,9 +5,9 @@ namespace DallENet.ServiceConfigurations;
 internal class AzureDallEServiceConfiguration : DallEServiceConfiguration
 {
     /// <summary>
-    /// The default API version for Azure OpenAI service.
+    /// The default API version for Azure OpenAI Image Generation service.
     /// </summary>
-    public const string DefaultApiVersion = "2023-06-01-preview";
+    public const string DefaultApiVersion = "2023-12-01-preview";
 
     /// <summary>
     /// Gets or sets the name of the Azure OpenAI Resource.
@@ -15,14 +15,14 @@ internal class AzureDallEServiceConfiguration : DallEServiceConfiguration
     public string? ResourceName { get; set; }
 
     /// <summary>
-    /// Gets or sets the API version of the Azure OpenAI service (Default: 2023-06-01-preview).
+    /// Gets or sets the API version of the Azure OpenAI service (Default: 2023-12-01-preview-preview).
     /// </summary>
     /// <remarks>
     /// Currently supported versions are:
-    /// <list type = "bullet" >
+    /// <list type="bullet" >
     ///   <item>
-    ///     <term>2023-06-01-preview</term>
-    ///     <description><see href="https://github.com/Azure/azure-rest-api-specs/blob/main/specification/cognitiveservices/data-plane/AzureOpenAI/inference/preview/2023-06-01-preview/inference.json">Swagger spec</see></description>
+    ///     <term>2023-12-01-preview</term>
+    ///     <description><see href="https://github.com/Azure/azure-rest-api-specs/blob/main/specification/cognitiveservices/data-plane/AzureOpenAI/inference/preview/2023-12-01-preview/inference.json">Swagger spec</see></description>
     ///   </item>
     /// </list>
     /// </remarks>
@@ -50,15 +50,9 @@ internal class AzureDallEServiceConfiguration : DallEServiceConfiguration
         };
     }
 
-    public override Uri GetImageGenerationEndpoint()
+    public override Uri GetImageGenerationEndpoint(string? model)
     {
-        var endpoint = new Uri($"https://{ResourceName}.openai.azure.com/openai/images/generations:submit?api-version={ApiVersion}");
-        return endpoint;
-    }
-
-    public override Uri GetDeleteImageEndpoint(string operationId)
-    {
-        var endpoint = new Uri($"https://{ResourceName}.openai.azure.com/openai/operations/images/{operationId}?api-version={ApiVersion}");
+        var endpoint = new Uri($"https://{ResourceName}.openai.azure.com/openai/deployments/{model}/images/generations?api-version={ApiVersion}");
         return endpoint;
     }
 

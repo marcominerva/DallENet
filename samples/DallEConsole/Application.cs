@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using DallENet;
+using DallENet.Extensions;
+using DallENet.Models;
 
 namespace DallEConsole;
 
@@ -27,7 +29,7 @@ internal class Application
                 {
                     Console.Write("I'm working... ");
 
-                    var response = await dallEClient.GenerateImagesAsync(prompt);
+                    var response = await dallEClient.GenerateImagesAsync(prompt, imageResponseFormat: DallEImageResponseFormats.Base64Json);
 
                     var imageUrl = response.GetImageUrl();
                     if (!string.IsNullOrWhiteSpace(imageUrl))
