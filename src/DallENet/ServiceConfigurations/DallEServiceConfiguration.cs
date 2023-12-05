@@ -6,9 +6,7 @@ internal abstract class DallEServiceConfiguration
 {
     public string? ApiKey { get; set; }
 
-    public abstract Uri GetImageGenerationEndpoint();
-
-    public abstract Uri GetDeleteImageEndpoint(string operationId);
+    public abstract Uri GetImageGenerationEndpoint(string? model);
 
     public abstract IDictionary<string, string?> GetRequestHeaders();
 

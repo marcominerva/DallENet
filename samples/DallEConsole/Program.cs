@@ -16,23 +16,24 @@ static void ConfigureServices(HostBuilderContext context, IServiceCollection ser
     // Adds DALL·E service using settings from IConfiguration.
     services.AddDallE(context.Configuration);
 
-    // Adds DALL·E service and configure options via code.
+    //// Adds DALL·E service and configure options via code.
     //services.AddDallE(options =>
     //{
     //    // Azure OpenAI Service.
-    //    //options.UseAzure(resourceName: "", apiKey: "", authenticationType: AzureAuthenticationType.ApiKey);
+    //    options.UseAzure(resourceName: "", apiKey: "", authenticationType: AzureAuthenticationType.ApiKey);
 
-    //    options.DefaultResolution = DallEImageResolutions.Medium;     // Default: Large (1024x1024)
-    //    options.DefaultImageCount = 2;  // Default: 1
+    //    options.DefaultSize = DallEImageSizes._1792x1024;              // Default: 1024x1024
+    //    options.DefaultQuality = DallEImageQualities.HD;               // Default: Standard
+    //    options.DefaultStyle = DallEImageStyles.Natural;               // Default: Vivid
+    //    options.DefaultResponseFormat = DallEImageResponseFormats.Url; // Default: Url
     //});
 
-    // Adds DALL·E service using settings from IConfiguration and code.
+    //// Adds DALL·E service using settings from IConfiguration and code.
     //services.AddDallE(options =>
     //{
     //    options.UseConfiguration(context.Configuration);
 
     //    options.UseAzure(resourceName: "", apiKey: "", authenticationType: AzureAuthenticationType.ApiKey);
-    //    options.DefaultResolution = DallEImageResolutions.Medium;     // Default: Large (1024x1024)
-    //    options.DefaultImageCount = 2;  // Default: 1
+    //    options.DefaultSize = DallEImageSizes._1792x1024;     // Default: 1024x1024
     //});
 }

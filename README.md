@@ -8,6 +8,9 @@
 
 A DALL·E integration library for .NET
 
+> **Note**
+The current version of the library requires a DALL·E 3 resource. If you want to use DALL·E 2, plese refer to [this version](https://github.com/marcominerva/DallENet/tree/v1.0.13).
+
 ## Installation
 
 The library is available on [NuGet](https://www.nuget.org/packages/DallENet). Just search for *DallENet* in the **Package Manager GUI** or run the following command in the **.NET CLI**:
@@ -21,10 +24,12 @@ Register DALL·E service at application startup:
     builder.Services.AddDallE(options =>
     {
         // Azure OpenAI Service.
-        //options.UseAzure(resourceName: "", apiKey: "", authenticationType: AzureAuthenticationType.ApiKey);
+        options.UseAzure(resourceName: "", apiKey: "", authenticationType: AzureAuthenticationType.ApiKey);
 
-        options.DefaultResolution = DallEImageResolutions.Medium;     // Default: Large (1024x1024)
-        options.DefaultImageCount = 2;  // Default: 1
+        options.DefaultSize = DallEImageSizes._1792x1024;              // Default: 1024x1024
+        options.DefaultQuality = DallEImageQualities.HD;               // Default: Standard
+        options.DefaultStyle = DallEImageStyles.Natural;               // Default: Vivid
+        options.DefaultResponseFormat = DallEImageResponseFormats.Url; // Default: Url
     });
 
 
@@ -33,22 +38,35 @@ Currently, **DallENet** supports Azure OpenAI Service only. Support for OpenAI w
 - _ResourceName_: the name of your Azure OpenAI Resource (required).
 - _ApiKey_: Azure OpenAI provides two methods for authentication. You can use either API Keys or Azure Active Directory (required).
 - _ApiVersion_: the version of the API to use (optional). Allowed values:
-  - 2023-06-01-preview (default)
+  - 2023-12-01-preview (default)
 - _AuthenticationType_: it specifies if the key is an actual API Key or an [Azure Active Directory token](https://learn.microsoft.com/azure/cognitive-services/openai/how-to/managed-identity) (optional, default: "ApiKey").
 
-### Default Image Resolution
+#### Default Image Size
 
-DALL·E is able to generate images at different resolutions:
+DALL·E 3 is able to generate images at different resolutions:
 
-- Small (256x256)
-- Medium (512x512)
-- Large (1024x1024)
+- 1024x1024
+- 1792x1024
+- 1024x1792
 
-Using the *DefaultResolution* property, it is possible to specify the default image resolution, unless you pass an explicit value in the **GenerateImageAsync** method. The default resolution is _Large_ (1024x1024).
+Using the *DefaultSize* property, it is possible to specify the default image size, unless you pass an explicit value in the **GenerateImageAsync** or **GetImageStreamAsync** methods. The default resolution is 1024x1024.
 
-### Default Image Count
+#### Default Quality
 
-DALL·E is able to generate up to 5 images for a single request. Using the *DefaultImage* property, it is possible to specify the default number of images to generate, unless you pass an explicit value in the **GenerateImageAsync** method. The default image count is 1.
+DALL·E 3 is able to generate images in standard or HD quality, that is, with finer details and greater consistency across the image. Using the *DefaultQuality* property, it is possible to specify the default quality, unless you pass an explicit value in the **GenerateImageAsync** or **GetImageStreamAsync** methods. The default quality is _Standard_.
+
+#### Default Style
+
+DALL·E 3 is able to generate images usinga vivid of natural style:
+
+- Vivid generates hyper-real and dramatic images.
+- Natural produces more natural, less hyper-real looking images.
+
+Using the *DefaultStyle* property, it is possible to specify the default style, unless you pass an explicit value in the **GenerateImageAsync** or **GetImageStreamAsync** methods. The default style is _Vivid_.
+
+#### Default Response format
+
+DALL·E 3 is able to return the URL of the generated image of its Base64 encoding. Using the *DefaultResponseFormat* property, it is possible to specify the default quality, unless you pass an explicit value in the **GenerateImageAsync** or **GetImageStreamAsync** methods. The default quality is _Url_.
 
 ### Configuration using an external source
 
@@ -58,11 +76,14 @@ The configuration can be automatically read from [IConfiguration](https://learn.
         "Provider": "Azure",                // Optional. Currently only Azure is supported
         "ApiKey": "",                       // Required
         "ResourceName": "",                 // Required 
-        "ApiVersion": "2023-06-01-preview", // Optional, used only by Azure OpenAI Service. Allowed values: 2023-06-01-preview (default)
+        "ApiVersion": "2023-12-01-preview", // Optional, used only by Azure OpenAI Service. Allowed values: 2023-12-01-preview (default)
         "AuthenticationType": "ApiKey",     // Optional, Allowed values: ApiKey (default) or ActiveDirectory
 
-        "DefaultResolution": "1024x1024",   // Optional, Allowed values: 256x256, 512x512, 1024x1024 (default)
-        "DefaultImageCount": 1,             // Optional, Allowed values: 1 (default) to 5
+        "DefaultModel": "dall-e-3",         // Required
+        "DefaultSize": "1792x1024",         // Optional, Allowed values: 1024x1024 (default), 1792x1024 or 1024x1792
+        "DefaultQuality": "standard",       // Optional, Allowed values: standard (default) or hd
+        "DefaultResponseFormat": "url",     // Optional, Allowed values: url (default) or b64_json
+        "DefaultStyle": "vivid",            // Optional, Allowed values: natural (default), or vivid
         "ThrowExceptionOnError": true
     }
 
@@ -92,7 +113,7 @@ In more complex scenarios, it is possible to configure **DallENet** using both c
 
     builder.Services.AddDallE((services, options) =>
     {
-        // Configure common properties (default resolution, default image count, ecc.) using IConfiguration.
+        // Configure common properties (default size, default style, ecc.) using IConfiguration.
         options.UseConfiguration(builder.Configuration);
 
         var accountService = services.GetRequiredService<IAccountService>();
@@ -117,7 +138,7 @@ The library can be used in any .NET application built with .NET 6.0 or later. Fo
 
     public record class Request(string Prompt);
 
-In particular, the response contains the URL (or the list of URLs) of generated images. If we just want to retrieve the URL of the first generated image, we can call the **GetImageUrl** method:
+In particular, the response contains the URL of the generated image. If we just want to retrieve the URL of the first generated image, we can call the **GetImageUrl** method:
 
     var imageUrl = response.GetImageUrl();
 
@@ -125,17 +146,6 @@ In particular, the response contains the URL (or the list of URLs) of generated 
 Generated images are automatically deleted after 24 hours.
 
 Check the [Samples folder](https://github.com/marcominerva/DallENet/tree/master/samples) for more information about the different implementations.
-
-### Deleting generated images
-
-Generated images are automatically deleted after 24 hours. If necessary, it is possible to explicitly trigger the deletion earlier using the **DeleteImagesAsync** method:
-
-    await dallECliente.DeleteImagesAsync(response.Id);
-
-The _operationId_ argument is a GUID that identifies the original image generation request and is returned when calling the **GenerateImagesAsync** method.
-
-> **Note**
-This method deletes all the images that have been generated in the request associated with the given _OperationId_.
 
 ## Documentation
 

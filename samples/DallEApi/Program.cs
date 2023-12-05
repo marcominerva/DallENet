@@ -1,8 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 using DallENet;
-using Microsoft.AspNetCore.Diagnostics;
-using MinimalHelpers.OpenApi;
+using DallENet.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,31 +13,29 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 // Adds DALL·E service using settings from IConfiguration.
 builder.Services.AddDallE(builder.Configuration);
 
-// Adds DALL·E service and configure options via code.
-//services.AddDallE(options =>
+////Adds DALL·E service and configure options via code.
+//builder.Services.AddDallE(options =>
 //{
 //    // Azure OpenAI Service.
-//    //options.UseAzure(resourceName: "", apiKey: "", authenticationType: AzureAuthenticationType.ApiKey);
+//    options.UseAzure(resourceName: "", apiKey: "", authenticationType: AzureAuthenticationType.ApiKey);
 
-//    options.DefaultResolution = DallEImageResolutions.Medium;     // Default: Large (1024x1024)
-//    options.DefaultImageCount = 2;  // Default: 1
+//    options.DefaultSize = DallEImageSizes._1792x1024;              // Default: 1024x1024
+//    options.DefaultQuality = DallEImageQualities.HD;               // Default: Standard
+//    options.DefaultStyle = DallEImageStyles.Natural;               // Default: Vivid
+//    options.DefaultResponseFormat = DallEImageResponseFormats.Url; // Default: Url
 //});
 
-// Adds DALL·E service using settings from IConfiguration and code.
-//services.AddDallE(options =>
+////Adds DALL·E service using settings from IConfiguration and code.
+//builder.Services.AddDallE(options =>
 //{
-//    options.UseConfiguration(context.Configuration);
+//    options.UseConfiguration(builder.Configuration);
 
 //    options.UseAzure(resourceName: "", apiKey: "", authenticationType: AzureAuthenticationType.ApiKey);
-//    options.DefaultResolution = DallEImageResolutions.Medium; // Default: Large (1024x1024)
-//    options.DefaultImageCount = 2;  // Default: 1
+//    options.DefaultSize = DallEImageSizes._1792x1024;     // Default: 1024x1024
 //});
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddMissingSchemas();
-});
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddProblemDetails(options =>
 {
@@ -53,34 +50,7 @@ var app = builder.Build();
 // Configures the HTTP request pipeline.
 app.UseHttpsRedirection();
 
-if (!app.Environment.IsDevelopment())
-{
-    // Error handling
-    app.UseExceptionHandler(new ExceptionHandlerOptions
-    {
-        AllowStatusCode404Response = true,
-        ExceptionHandler = async (HttpContext context) =>
-        {
-            var problemDetailsService = context.RequestServices.GetRequiredService<IProblemDetailsService>();
-            var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
-            var error = exceptionHandlerFeature?.Error;
-
-            // Writes as JSON problem details
-            await problemDetailsService.WriteAsync(new()
-            {
-                HttpContext = context,
-                AdditionalMetadata = exceptionHandlerFeature?.Endpoint?.Metadata,
-                ProblemDetails =
-                {
-                    Status = context.Response.StatusCode,
-                    Title = error?.GetType().FullName ?? "An error occurred while processing your request",
-                    Detail = error?.Message
-                }
-            });
-        }
-    });
-}
-
+app.UseExceptionHandler();
 app.UseStatusCodePages();
 
 app.UseSwagger();
@@ -90,16 +60,16 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "DALL·E API v1");
 });
 
-app.MapPost("/api/image", async (Request request, string? resolution, int? imageCount, IDallEClient dallEClient) =>
+app.MapPost("/api/image", async (Request request, IDallEClient dallEClient, string? size = DallEImageSizes._1024x1024, string? quality = DallEImageQualities.Standard, string? style = DallEImageStyles.Vivid) =>
 {
-    var response = await dallEClient.GenerateImagesAsync(request.Prompt, imageCount, resolution);
+    var response = await dallEClient.GenerateImagesAsync(request.Prompt, size, quality, style);
     return TypedResults.Ok(response);
 })
 .WithOpenApi();
 
-app.MapPost("/api/image-content", async (Request request, string? resolution, IDallEClient dallEClient) =>
+app.MapPost("/api/image-content", async (Request request, IDallEClient dallEClient, string? size = DallEImageSizes._1024x1024, string? quality = DallEImageQualities.Standard, string? style = DallEImageStyles.Vivid) =>
 {
-    var imageStream = await dallEClient.GetImageStreamAsync(request.Prompt, resolution);
+    var imageStream = await dallEClient.GetImageStreamAsync(request.Prompt, size, quality, style);
     return TypedResults.Stream(imageStream, "image/png");
 })
 .WithOpenApi();

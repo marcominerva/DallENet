@@ -3,7 +3,7 @@
 Gets or sets the url of the image.
 
 ```csharp
-public string Url { get; set; }
+public string? Url { get; set; }
 ```
 
 ## Remarks

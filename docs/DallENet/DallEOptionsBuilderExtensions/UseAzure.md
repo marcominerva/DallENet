@@ -4,7 +4,7 @@ Configures Azure OpenAI Service settings.
 
 ```csharp
 public static DallEOptionsBuilder UseAzure(this DallEOptionsBuilder builder, string resourceName, 
-    string apiKey, string apiVersion = "2023-06-01-preview", 
+    string apiKey, string apiVersion = "2023-12-01-preview", 
     AzureAuthenticationType authenticationType = AzureAuthenticationType.ApiKey)
 ```
 

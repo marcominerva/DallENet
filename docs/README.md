@@ -18,6 +18,12 @@
 | --- | --- |
 | class [DallEException](./DallENet.Exceptions/DallEException.md) | Represents errors that occur during API invocation. |
 
+## DallENet.Extensions namespace
+
+| public type | description |
+| --- | --- |
+| static class [DallEImageGenerationResponseExtensions](./DallENet.Extensions/DallEImageGenerationResponseExtensions.md) | Provides extension methods for the [`DallEImageGenerationResponse`](./DallENet.Models/DallEImageGenerationResponse.md) class. |
+
 ## DallENet.Models namespace
 
 | public type | description |
@@ -25,8 +31,10 @@
 | class [DallEError](./DallENet.Models/DallEError.md) | Contains information about the error occurred while invoking the service. |
 | class [DallEImage](./DallENet.Models/DallEImage.md) | Represents an image. |
 | class [DallEImageGenerationResponse](./DallENet.Models/DallEImageGenerationResponse.md) | Represents an image generation respose. |
-| class [DallEImageGenerationResult](./DallENet.Models/DallEImageGenerationResult.md) | Represents an image generation result. |
-| static class [DallEImageResolutions](./DallENet.Models/DallEImageResolutions.md) | Contains all the resolutions supported by DALL·E. |
+| static class [DallEImageQualities](./DallENet.Models/DallEImageQualities.md) | Contains all the image qualities supported by DALL·E. |
+| static class [DallEImageResponseFormats](./DallENet.Models/DallEImageResponseFormats.md) | Contains all the image response formats supported by DALL·E. |
+| static class [DallEImageSizes](./DallENet.Models/DallEImageSizes.md) | Contains all the image sizes supported by DALL·E. |
+| static class [DallEImageStyles](./DallENet.Models/DallEImageStyles.md) | Contains all the image styles supported by DALL·E. |
 
 ## DallENet.ServiceConfigurations namespace
 

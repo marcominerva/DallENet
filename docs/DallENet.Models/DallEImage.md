@@ -11,6 +11,8 @@ public class DallEImage
 | name | description |
 | --- | --- |
 | [DallEImage](DallEImage/DallEImage.md)() | The default constructor. |
+| [Base64](DallEImage/Base64.md) { get; set; } | Gets or sets the base64 byte code of the image in JSON format. |
+| [RevisedPrompt](DallEImage/RevisedPrompt.md) { get; set; } | Gets or sets the actual prompt that has been used to generate the image. |
 | [Url](DallEImage/Url.md) { get; set; } | Gets or sets the url of the image. |
 
 ## Remarks
