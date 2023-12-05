@@ -41,7 +41,7 @@ Currently, **DallENet** supports Azure OpenAI Service only. Support for OpenAI w
   - 2023-12-01-preview (default)
 - _AuthenticationType_: it specifies if the key is an actual API Key or an [Azure Active Directory token](https://learn.microsoft.com/azure/cognitive-services/openai/how-to/managed-identity) (optional, default: "ApiKey").
 
-### Default Image Size
+#### Default Image Size
 
 DALL·E 3 is able to generate images at different resolutions:
 
@@ -51,10 +51,12 @@ DALL·E 3 is able to generate images at different resolutions:
 
 Using the *DefaultSize* property, it is possible to specify the default image size, unless you pass an explicit value in the **GenerateImageAsync** or **GetImageStreamAsync** methods. The default resolution is 1024x1024.
 
-### Default Quality
+#### Default Quality
+
 DALL·E 3 is able to generate images in standard or HD quality, that is, with finer details and greater consistency across the image. Using the *DefaultQuality* property, it is possible to specify the default quality, unless you pass an explicit value in the **GenerateImageAsync** or **GetImageStreamAsync** methods. The default quality is _Standard_.
 
-### Default Style
+#### Default Style
+
 DALL·E 3 is able to generate images usinga vivid of natural style:
 
 - Vivid generates hyper-real and dramatic images.
@@ -62,7 +64,8 @@ DALL·E 3 is able to generate images usinga vivid of natural style:
 
 Using the *DefaultStyle* property, it is possible to specify the default style, unless you pass an explicit value in the **GenerateImageAsync** or **GetImageStreamAsync** methods. The default style is _Vivid_.
 
-### Default Response format
+#### Default Response format
+
 DALL·E 3 is able to return the URL of the generated image of its Base64 encoding. Using the *DefaultResponseFormat* property, it is possible to specify the default quality, unless you pass an explicit value in the **GenerateImageAsync** or **GetImageStreamAsync** methods. The default quality is _Url_.
 
 ### Configuration using an external source
