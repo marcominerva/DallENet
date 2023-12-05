@@ -11,8 +11,11 @@ public class DallEOptionsBuilder
 | name | description |
 | --- | --- |
 | [DallEOptionsBuilder](DallEOptionsBuilder/DallEOptionsBuilder.md)() | The default constructor. |
-| [DefaultImageCount](DallEOptionsBuilder/DefaultImageCount.md) { get; set; } | Gets or sets the default number of images to generate for a request. Must be between 1 and 5 (default: 1). |
-| [DefaultResolution](DallEOptionsBuilder/DefaultResolution.md) { get; set; } | Gets or sets the default resolution for image generation (default: 1024x1024). |
+| [DefaultModel](DallEOptionsBuilder/DefaultModel.md) { get; set; } | Gets or sets the default model for image generation. |
+| [DefaultQuality](DallEOptionsBuilder/DefaultQuality.md) { get; set; } | Gets or sets the default quality of generated images (default: [`Standard`](../DallENet.Models/DallEImageQualities/Standard.md). |
+| [DefaultResponseFormat](DallEOptionsBuilder/DefaultResponseFormat.md) { get; set; } | Gets or sets the default format of generated images (default: [`Url`](../DallENet.Models/DallEImageResponseFormats/Url.md). |
+| [DefaultSize](DallEOptionsBuilder/DefaultSize.md) { get; set; } | Gets or sets the default resolution for image generation (default: [`_1024x1024`](../DallENet.Models/DallEImageSizes/_1024x1024.md)). |
+| [DefaultStyle](DallEOptionsBuilder/DefaultStyle.md) { get; set; } | Gets or sets the default style of generated images (default: [`Vivid`](../DallENet.Models/DallEImageStyles/Vivid.md). |
 | [ThrowExceptionOnError](DallEOptionsBuilder/ThrowExceptionOnError.md) { get; set; } | Gets or sets a value that determines whether to throw a [`DallEException`](../DallENet.Exceptions/DallEException.md) when an error occurred (default: `true`). If this property is set to `false`, API errors are returned in the [`DallEImageGenerationResponse`](../DallENet.Models/DallEImageGenerationResponse.md) object. |
 
 ## See Also

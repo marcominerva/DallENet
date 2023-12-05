@@ -1,50 +1,19 @@
-# IDallEClient.GetImageStreamAsync method (1 of 2)
-
-Returns the Stream containing the image at the specified *index* in the response.
-
-```csharp
-public Task<Stream> GetImageStreamAsync(DallEImageGenerationResponse response, int index = 0, 
-    CancellationToken cancellationToken = default)
-```
-
-| parameter | description |
-| --- | --- |
-| response | The response of a previous image generation request |
-| index | The index of the image to get the Stream for (default: 0).. |
-| cancellationToken | The token to monitor for cancellation requests. |
-
-## Return Value
-
-The Stream containing the image
-
-## Remarks
-
-If an error occurred, this method throws a [`DallEException`](../../DallENet.Exceptions/DallEException.md) no matter the value of the [`ThrowExceptionOnError`](../DallEOptions/ThrowExceptionOnError.md) property.
-
-## See Also
-
-* method [GenerateImagesAsync](./GenerateImagesAsync.md)
-* method [GetImageStreamAsync](./GetImageStreamAsync.md)
-* class [DallEException](../../DallENet.Exceptions/DallEException.md)
-* class [DallEImageGenerationResponse](../../DallENet.Models/DallEImageGenerationResponse.md)
-* interface [IDallEClient](../IDallEClient.md)
-* namespace [DallENet](../../DallENet.md)
-
----
-
-# IDallEClient.GetImageStreamAsync method (2 of 2)
+# IDallEClient.GetImageStreamAsync method
 
 Requests a new image generation and directly returns the Stream containing the image.
 
 ```csharp
-public Task<Stream> GetImageStreamAsync(string prompt, string? resolution = null, 
-    CancellationToken cancellationToken = default)
+public Task<Stream> GetImageStreamAsync(string prompt, string? size = null, string? quality = null, 
+    string? style = null, string? model = null, CancellationToken cancellationToken = default)
 ```
 
 | parameter | description |
 | --- | --- |
-| prompt | A text description of the desired image(s). The maximum length is 1000 characters. |
-| resolution | The size of the generated images. If `null`, the resolution set in the [`DefaultResolution`](../DallEOptions/DefaultResolution.md) will be used (default: 1024x1024). |
+| prompt | A text description of the desired image(s). The maximum length is 4000 characters. |
+| size | The size of the generated image. If `null`, the size set in the [`DefaultSize`](../DallEOptions/DefaultSize.md) property will be used (default: [`_1024x1024`](../../DallENet.Models/DallEImageSizes/_1024x1024.md)). |
+| quality | The quality of the generated image. If `null`, the quality set in the [`DefaultQuality`](../DallEOptions/DefaultQuality.md) property will be used (default: [`Standard`](../../DallENet.Models/DallEImageQualities/Standard.md)). |
+| style | The style of the generated image. If `null`, the style set in the [`DefaultStyle`](../DallEOptions/DefaultStyle.md) property will be used (default: [`Vivid`](../../DallENet.Models/DallEImageStyles/Vivid.md)). |
+| model | The image generation model to use. If `null`, the model specified in the [`DefaultModel`](../DallEOptions/DefaultModel.md) property will be used. |
 | cancellationToken | The token to monitor for cancellation requests. |
 
 ## Return Value

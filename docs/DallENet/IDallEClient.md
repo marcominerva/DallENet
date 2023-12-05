@@ -10,9 +10,8 @@ public interface IDallEClient
 
 | name | description |
 | --- | --- |
-| [DeleteImagesAsync](IDallEClient/DeleteImagesAsync.md)(…) | Triggers the deletion of generated images. |
 | [GenerateImagesAsync](IDallEClient/GenerateImagesAsync.md)(…) | Requests a new images generation. |
-| [GetImageStreamAsync](IDallEClient/GetImageStreamAsync.md)(…) | Requests a new image generation and directly returns the Stream containing the image. (2 methods) |
+| [GetImageStreamAsync](IDallEClient/GetImageStreamAsync.md)(…) | Requests a new image generation and directly returns the Stream containing the image. |
 
 ## See Also
 

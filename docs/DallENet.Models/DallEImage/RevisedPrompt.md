@@ -1,14 +1,10 @@
-# DallEImage.Url property
+# DallEImage.RevisedPrompt property
 
-Gets or sets the url of the image.
+Gets or sets the actual prompt that has been used to generate the image.
 
 ```csharp
-public string? Url { get; set; }
+public string RevisedPrompt { get; set; }
 ```
-
-## Remarks
-
-Generated images are automatically deleted after 24 hours.
 
 ## See Also
 

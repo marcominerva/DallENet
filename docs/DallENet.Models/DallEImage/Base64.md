@@ -1,14 +1,10 @@
-# DallEImage.Url property
+# DallEImage.Base64 property
 
-Gets or sets the url of the image.
+Gets or sets the base64 byte code of the image in JSON format.
 
 ```csharp
-public string? Url { get; set; }
+public string? Base64 { get; set; }
 ```
-
-## Remarks
-
-Generated images are automatically deleted after 24 hours.
 
 ## See Also
 

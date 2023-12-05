@@ -1,9 +1,9 @@
-# DallEOptionsBuilder.DefaultResolution property
+# DallEOptionsBuilder.DefaultModel property
 
-Gets or sets the default resolution for image generation (default: 1024x1024).
+Gets or sets the default model for image generation.
 
 ```csharp
-public string DefaultResolution { get; set; }
+public string? DefaultModel { get; set; }
 ```
 
 ## See Also

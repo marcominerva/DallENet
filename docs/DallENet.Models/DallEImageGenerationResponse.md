@@ -13,12 +13,8 @@ public class DallEImageGenerationResponse
 | [DallEImageGenerationResponse](DallEImageGenerationResponse/DallEImageGenerationResponse.md)() | The default constructor. |
 | [CreatedAt](DallEImageGenerationResponse/CreatedAt.md) { get; set; } | Gets or sets the UTC date and time at which the response has been generated. |
 | [Error](DallEImageGenerationResponse/Error.md) { get; set; } | Gets or sets the error occurred during the image generation execution, if any. |
-| [ExpiresAt](DallEImageGenerationResponse/ExpiresAt.md) { get; set; } | Gets or sets the UTC date and time at which the response will expire. |
-| [Id](DallEImageGenerationResponse/Id.md) { get; set; } | Gets or sets the Id of the response. |
+| [Images](DallEImageGenerationResponse/Images.md) { get; set; } | Gets or sets the image that has been generated. |
 | [IsSuccessful](DallEImageGenerationResponse/IsSuccessful.md) { get; } | Gets a value that determines if the response was successful. |
-| [Result](DallEImageGenerationResponse/Result.md) { get; set; } | Gets or sets the result that has been generated. |
-| [Status](DallEImageGenerationResponse/Status.md) { get; set; } | Gets or sets the status of the response. |
-| [GetImageUrl](DallEImageGenerationResponse/GetImageUrl.md)(…) | Gets the URL of the specified image, if available. |
 
 ## Remarks
 

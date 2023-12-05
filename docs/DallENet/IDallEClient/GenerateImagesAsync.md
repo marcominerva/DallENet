@@ -3,16 +3,19 @@
 Requests a new images generation.
 
 ```csharp
-public Task<DallEImageGenerationResponse> GenerateImagesAsync(string prompt, 
-    int? imageCount = null, string? resolution = null, 
-    CancellationToken cancellationToken = default)
+public Task<DallEImageGenerationResponse> GenerateImagesAsync(string prompt, string? size = null, 
+    string? quality = null, string? style = null, string? imageResponseFormat = null, 
+    string? model = null, CancellationToken cancellationToken = default)
 ```
 
 | parameter | description |
 | --- | --- |
-| prompt | A text description of the desired image(s). The maximum length is 1000 characters. |
-| imageCount | The number of images to generate. Must be between 1 and 5. If `null`, the number set in the [`DefaultImageCount`](../DallEOptions/DefaultImageCount.md) will be used (default: 1). |
-| resolution | The size of the generated images. If `null`, the resolution set in the [`DefaultResolution`](../DallEOptions/DefaultResolution.md) will be used (default: 1024x1024). |
+| prompt | A text description of the desired image. The maximum length is 4000 characters. |
+| size | The size of the generated image. If `null`, the size set in the [`DefaultSize`](../DallEOptions/DefaultSize.md) property will be used (default: [`_1024x1024`](../../DallENet.Models/DallEImageSizes/_1024x1024.md)). |
+| quality | The quality of the generated image. If `null`, the quality set in the [`DefaultQuality`](../DallEOptions/DefaultQuality.md) property will be used (default: [`Standard`](../../DallENet.Models/DallEImageQualities/Standard.md)). |
+| style | The style of the generated image. If `null`, the style set in the [`DefaultStyle`](../DallEOptions/DefaultStyle.md) property will be used (default: [`Vivid`](../../DallENet.Models/DallEImageStyles/Vivid.md)). |
+| imageResponseFormat | The format in which the generated images are returned. If `null`, the format set in the [`DefaultResponseFormat`](../DallEOptions/DefaultResponseFormat.md) property will be used (default: [`Url`](../../DallENet.Models/DallEImageResponseFormats/Url.md)). |
+| model | The image generation model to use. If `null`, the model specified in the [`DefaultModel`](../DallEOptions/DefaultModel.md) property will be used. |
 | cancellationToken | The token to monitor for cancellation requests. |
 
 ## Return Value
@@ -25,7 +28,6 @@ The image generation response.
 | --- | --- |
 | ArgumentNullException | *prompt* is `null`. |
 | [DallEException](../../DallENet.Exceptions/DallEException.md) | An error occurred while calling the API and the [`ThrowExceptionOnError`](../DallEOptions/ThrowExceptionOnError.md) is `true`. |
-| ArgumentOutOfRangeException | *imageCount* is not between 1 and 5. |
 
 ## See Also
 
