@@ -89,6 +89,7 @@ The configuration can be automatically read from [IConfiguration](https://learn.
     "DefaultResponseFormat": "url",     // Optional, Allowed values: url (default) or b64_json
     "DefaultStyle": "vivid",            // Optional, Allowed values: natural (default), or vivid
     "ThrowExceptionOnError": true
+    //"User": "UserName"                // Optional
 }
 ```
 

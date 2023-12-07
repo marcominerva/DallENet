@@ -46,6 +46,14 @@ public class DallEOptionsBuilder
     public string DefaultStyle { get; set; } = DallEImageStyles.Vivid;
 
     /// <summary>
+    /// Gets or sets the user identification for chat completion, which can help OpenAI to monitor and detect abuse.
+    /// </summary>
+    /// <remarks>
+    /// See <see href="https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids">Safety best practices</see> for more information.
+    /// </remarks>
+    public string? User { get; set; }
+
+    /// <summary>
     /// Gets or sets a value that determines whether to throw a <see cref="DallEException"/> when an error occurred (default: <see langword="true"/>). If this property is set to <see langword="false"></see>, API errors are returned in the <see cref="DallEImageGenerationResponse"/> object.
     /// </summary>
     /// <seealso cref="DallEException"/>
@@ -61,6 +69,7 @@ public class DallEOptionsBuilder
             DefaultResponseFormat = DefaultResponseFormat,
             DefaultStyle = DefaultStyle,
             ThrowExceptionOnError = ThrowExceptionOnError,
+            User = User,
             ServiceConfiguration = ServiceConfiguration
         };
 }
