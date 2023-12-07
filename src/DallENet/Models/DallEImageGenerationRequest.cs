@@ -15,4 +15,6 @@ internal class DallEImageGenerationRequest
     public string ResponseFormat { get; set; } = DallEImageResponseFormats.Url;
 
     public string Style { get; set; } = DallEImageStyles.Vivid;
+
+    public string? User { get; set; }
 }

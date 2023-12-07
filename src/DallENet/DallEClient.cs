@@ -73,7 +73,8 @@ internal class DallEClient : IDallEClient
             Size = size ?? options.DefaultSize,
             Quality = quality ?? options.DefaultQuality,
             ResponseFormat = imageResponseFormat ?? options.DefaultResponseFormat,
-            Style = style ?? options.DefaultStyle
+            Style = style ?? options.DefaultStyle,
+            User = options.User
         };
 
     private static void NormalizeRenspose(DallEImageGenerationResponse response, HttpResponseMessage httpResponse)
