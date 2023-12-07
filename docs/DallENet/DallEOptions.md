@@ -17,6 +17,7 @@ public class DallEOptions
 | [DefaultSize](DallEOptions/DefaultSize.md) { get; set; } | Gets or sets the default resolution for image generation (default: [`_1024x1024`](../DallENet.Models/DallEImageSizes/_1024x1024.md)). |
 | [DefaultStyle](DallEOptions/DefaultStyle.md) { get; set; } | Gets or sets the default style of generated images (default: [`Vivid`](../DallENet.Models/DallEImageStyles/Vivid.md). |
 | [ThrowExceptionOnError](DallEOptions/ThrowExceptionOnError.md) { get; set; } | Gets or sets a value that determines whether to throw a [`DallEException`](../DallENet.Exceptions/DallEException.md) when an error occurred (default: `true`). If this property is set to `false`, API errors are returned in the [`DallEImageGenerationResponse`](../DallENet.Models/DallEImageGenerationResponse.md) object. |
+| [User](DallEOptions/User.md) { get; set; } | Gets or sets the user identification for chat completion, which can help OpenAI to monitor and detect abuse. |
 
 ## See Also
 
