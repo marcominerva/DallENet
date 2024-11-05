@@ -1,7 +1,8 @@
-using System.Diagnostics;
 using System.Text.Json.Serialization;
 using DallENet;
 using DallENet.Models;
+using TinyHelpers.AspNetCore.Extensions;
+using TinyHelpers.AspNetCore.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,15 +36,13 @@ builder.Services.AddDallE(builder.Configuration);
 //});
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddProblemDetails(options =>
+builder.Services.AddSwaggerGen(options =>
 {
-    options.CustomizeProblemDetails = context =>
-    {
-        context.ProblemDetails.Extensions["traceId"] = Activity.Current?.Id ?? context.HttpContext.TraceIdentifier;
-    };
+    options.AddDefaultResponse();
 });
+
+builder.Services.AddDefaultProblemDetails();
+builder.Services.AddDefaultExceptionHandler();
 
 var app = builder.Build();
 
